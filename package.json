@@ -1,0 +1,31 @@
+{
+  "name": "polymer-search-group",
+  "version": "1.0.0",
+  "description": "search ui component",
+  "main": "polymer-search-group.html",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "babel-eslint": "^5.0.4",
+    "chai": "^3.5.0",
+    "eslint": "^1.10.3",
+    "eslint-plugin-html": "^1.4.0",
+    "mocha": "^2.4.5",
+    "web-component-tester": "^3.3.30"
+  },
+  "scripts": {
+    "test": "wct"
+  },
+  "keywords": [
+    "search-group"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:gatom0g/polymer-search-group.git"
+  },
+  "author": "Axel Caballero",
+  "license": "MIT",
+  "homepage": "https://github.com/gatom0g/polymer-search-group#readme"
+}
