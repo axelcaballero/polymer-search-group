@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../polymer-search-group.html">
+  </head>
+  <body>
+
+    <test-fixture id="polymer-search-group-fixture">
+      <template>
+        <polymer-search-group>
+        </polymer-search-group>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('<polymer-search-group>', function() {
+
+        var myEl;
+
+        setup(function() {
+          myEl = fixture('polymer-search-group-fixture');
+        });
+        test('search box should be empty', () => {
+          assert.equal(myEl.filterString.length, 0);
+        });
+        test('filterString is a string', () => {
+          assert.isString(myEl.filterString, 'search text is a string');
+        });
+        test('search results should be hidden by default', () => {
+          assert.isTrue(myEl._hide, 'hide is true, so results are hidden');
+        });
+        test('search results should be visible when at least 3 characters are entered', () => {
+          myEl.filterString = 'Roman';
+          assert.equal(myEl._hide, false);
+        });
+      });
+    </script>
+
+  </body>
+</html>
