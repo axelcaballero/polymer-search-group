@@ -1,0 +1,80 @@
+<link rel="import" href="../iron-ajax/iron-ajax.html"/>
+<link rel="import" href="../paper-input/paper-input.html"/>
+<link rel="import" href="../paper-item/paper-item.html">
+<link rel="import" href="../paper-listbox/paper-listbox.html"/>
+<link rel="import" href="../polymer/polymer.html"/>
+<link rel="import" href="../poly-filter/poly-filter.html">
+
+<!--
+`<polymer-search-group>` Polymer component will let users search by filtering JSON results based on a matching string. Results will be displayed after 3 characters are entered.
+
+@group UI Elements
+@element polymer-search-group
+@demo demo/index.html
+-->
+
+<dom-module id="polymer-search-group">
+  <template>
+    <iron-ajax
+      auto url="[[url]]"
+      handle-as="json"
+      last-response="{{groups}}">
+    </iron-ajax>
+
+    <paper-input label="Search groups" value="{{filterString}}"></paper-input>
+
+    <poly-filter
+      array-to-filter="[[groups]]"
+      filter="[[filterString]]"
+      filtered-array="{{filteredGroups}}">
+    </poly-filter>
+
+    <paper-listbox id="results" hidden$="{{_hide}}" selected={{selectedGroup}} attr-for-selected="name">
+      <template is="dom-repeat" items="[[filteredGroups]]" as="group">
+        <paper-item name="{{group.name}}">[[group.name]]</paper-item>
+      </template>
+    </paper-listbox>
+
+  </template>
+
+  <script>
+  Polymer({
+    is: 'polymer-search-group',
+    properties: {
+      /**  It's the url to the json file to fetch */
+      url: {
+        type: String,
+        value: ''
+      },
+      /**  It's the string that's entered in the input field to filter search results */
+      filterString: {
+        type: String,
+        value: '',
+        notify: true,
+      },
+      /**  Indicates to show or hide the filtered search results */
+      _hide: {
+        type: Boolean,
+        value: true,
+        computed: '_shouldHideList(filterString)'
+      },
+      /**  Gets the name property of the selected item inside search results */
+      selectedGroup: {
+        type: String,
+        value: '',
+        notify: true
+      }
+    },
+    /**
+     * Fired whenever filterString changes.
+     * Depending on the lenght, it shows or hides the array with the search results, by updating hide boolean value.
+     * @param {String} filterString   - current value of input field.
+     * @returns {boolean}     - if the string's length is lower than 3 characters, it will return true,
+     * thus hiding the search results.
+     */
+    _shouldHideList(filterString) {
+      return filterString.length < 3;
+    }
+  });
+  </script>
+</dom-module>
